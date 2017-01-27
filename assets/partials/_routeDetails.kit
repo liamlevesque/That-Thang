@@ -1,0 +1,71 @@
+<template id="routedetailstemplate">
+	<div class="overlay route-details js--routedetails">
+		<div class="overlay--content">
+			<div class="overlay--body">
+				<div class="overlay--heading">
+					<h1 rv-text="routedetails.routeData.name"></h1>
+				</div>
+				<div class="grid--container">
+					<div class="content--square-block">
+						<label class="content--label">Grade</label>
+						<div class="route--grade_large" rv-text="routedetails.routeData.grade | gradeconversion routedetails.routeData.type"></div>
+					</div>
+					<div class="content--square-block">
+						<label class="content--label">Hold Colour</label>
+						<div class="route--colour_large" rv-routecolour="routedetails.routeData.colour" rv-alt="routedetails.routeData.colour"></div>
+					</div>
+					<div class="content--square-block">
+						<label class="content--label">Type</label>
+						<span rv-text="routedetails.routeData.type"></span>
+					</div>
+				</div>
+				<!-- <div>Topology: <span rv-text="routedetails.routeData.topo"></span></div> -->
+				<div class="content--section">	
+					<label class="content--label">Route Description:</label>
+					<p rv-text="routedetails.routeData.description"></p>
+				</div>
+				<div class="content--section h-ta-center">
+					<div class="h-pb-50">What did you think?</div>
+					<starrating></starrating>
+					<div rv-text="routedetails.routeData.votes.average | roundTwoDecimals"></div>
+				</div>
+				<div class="content--section">
+					Sends:<span rv-text="routedetails.routeData.sends.count"></span>
+					<button rv-on-click="routedetailscontroller.sent" rv-hide="routedetails.routeData.sends.users | userMatch">I sent it</button>
+					
+				</div> 
+				<div class="overlay--section">
+					<h3>Comments (<span rv-text="routedetails.routeData.comments | lengthofObject"></span>)</h3>
+					<ul rv-if="routedetails.routeData.comments | lengthToBool">
+						<li class="comment" rv-each-comment="routedetails.routeData.comments">
+							<p class="comment--body" rv-text="comment.message"></p>
+							<label class="comment--meta">Posted by<span rv-text="comment.user"></span> <span rv-text="comment.time | cleanDate"></span></label>
+						</li>
+					</ul>
+
+					<div class="h-rel">
+						<div class="field_comment" data-placeholder="Add a Comment" rv-divtextarea="routedetails.tempComment"></div>
+						<button class="button--icon_small button--transparent_grey field--submit" rv-on-click="routedetailscontroller.postComment"><i class="icon-send"></i></button>
+					</div>
+				</div>
+			</div>
+			<div class="overlay--controls">
+				<button class="button--text button--green_dark h-float-right" rv-on-click="routedetailscontroller.hide">Done</button> 
+				<button class="button--text button--red h-float-left" rv-on-click="routedetailscontroller.delete">Delete Route</button>
+				
+			</div>
+
+			<div class="overlay--confirm" rv-class-s-visible="routedetails.confirmDelte">
+				<div class="confirm--content">
+					Are you sure you want to delete this route?
+					<div class="h-ta-left h-mt-100">
+						<button class="button--bare" rv-on-click="routedetailscontroller.cancelConfirm">Cancel</button>
+						<button class="button--text button--red h-float-right" rv-on-click="routedetailscontroller.confirmDelete">Yes, Delete Route</button>
+					</div>
+				</div>
+			</div>
+
+		</div>
+
+	</div>
+</template>

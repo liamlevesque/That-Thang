@@ -1,0 +1,57 @@
+$brand-colour: #2ecc71;
+$brand-colour_tone: #27AE60;
+$brand-palette-a: #3498db; 
+$error-colour: #e74c3c;
+
+$black: #2C3E50;
+$grey-100: #34495E;
+$grey-300: #7F8C8D;
+$grey-500: #95A5A6;
+$grey-800: #bdc3c7;
+$grey-1000: #ECF0F1;
+
+$holdcolors: 	"Red" "#e74c3c" "#C0392B",
+				"Orange" "#E67E22" "#D35400",
+				"Yellow" "#F1C40F" "#F39C12",
+				"Green" "#2ecc71" "#27AE60", 
+				"Blue" "#3498DB" "#2980B9",
+				"Purple" "#9B59B6" "#8E44AD",
+				"Black" "#34495E" "#2C3E50";
+
+
+$palettes: (
+    green: (
+        base:   $brand-colour,
+        dark:   #27AE60,
+        x-dark: darken(#27AE60,10%)
+    ),
+    blue:(
+		base:   #3498db,
+        dark:   #2980B9
+    ),
+    red:(
+        base:   #e74c3c,
+        light:  lighten(#e74c3c,10%),
+        dark:   #C0392B,
+        x-dark: darken(#C0392B,10%),
+    ),
+    yellow:(
+        base:   #F1C40F,
+        dark:   #F39C12
+    ),
+    grey: (
+        base:  #95A5A6,
+        x-light: #ECF0F1,
+        light: #bdc3c7,
+        dark: #7F8C8D,
+        x-dark: #34495E,
+    )
+);
+
+@function palette($palette, $tone: 'base') {
+    @return map-get(map-get($palettes, $palette), $tone);
+}
+
+
+$border_default: 1px solid palette(grey,light);
+$shadow_default: 0 1px 5px 0 rgba(0,0,0,0.5);

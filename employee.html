@@ -1,0 +1,303 @@
+<!DOCTYPE HTML>
+
+
+<html>
+
+	<head>
+		<link rel="manifest" href="./manifest.json">
+		<title>Climbing Thang</title>
+		
+		<link type="text/css" rel="stylesheet" href="assets/css/styles.css">
+	</head>
+
+	<body class="page_static">
+		
+		
+
+		<div class="app-frame js--app">
+			<div class="offline" rv-unless="app.online">OFFLINE FOOL</div>\
+			<div class="" rv-on-click="appcontroller.showSignin" rv-unless="app.loggedin.isloggedin">Sign In</div>
+			<div class="" rv-if="app.loggedin.isloggedin">
+				<span rv-on-click="appcontroller.showDetails">Welcome back <span rv-text="app.loggedin.username"></span></span><br/>
+			</div>
+			<div class="toast toast_undoable" rv-if="app.undoMessage | lengthToBool">
+				<div class="container">
+					<span class="" rv-text="app.undoMessage"></span>
+					<button class="button--text h-float-right" rv-on-click="appcontroller.undoAction">Undo</button>
+				</div>
+			</div>
+		
+			<div class="toast toast_success" rv-if="app.confirmMessage | lengthToBool">
+				<div class="container">
+					<span class="" rv-text="app.confirmMessage"></span>
+					<button class="button--icon_small button--transparent_white h-float-right" rv-on-click="appcontroller.hideConfirmation"><i class="icon-cross"></i></button>
+				</div>
+			</div>
+		</div>
+		<div class="overlay js--signin" rv-show="signin.visible">
+					<div class="overlay--content">
+						<div class="overlay--body">
+							<h2>Sign In Please</h2>
+							<input type="text" placeholder="Username" rv-value="signin.username"><br/>
+							<input type="password" placeholder="Password" rv-value="signin.password"><br/>
+						</div>
+				
+						<div class="overlay--error" rv-show="signin.loginerror.haserror">
+							<h3>Error!</h3>
+							<p rv-text="signin.loginerror.message"></p>
+							<button rv-on-click="signincontroller.errorClear">Got it</button>
+						</div>
+						
+						<div class="overlay--controls">
+							<button rv-on-click="signincontroller.signin">Sing In</button>
+						</div>
+					</div>
+					
+				</div> 
+		<template id="useroverlay">
+							<div class="overlay js--activeuser">
+								<div class="overlay--content">
+									<div class="overlay--body">
+						
+										<div class="overlay--heading">
+											<h1 rv-text="user.data.name"></h1>
+										</div>
+						
+										<div class="overlay--section">
+											<div rv-text="user.data.name"></div>
+											<div rv-text="user.data.email"></div>
+						
+											<img class="user--qrcode" rv-src="user.data.qrcode | qrcodeToImage"/>
+						
+											<input type="text" placeholder="New Password" rv-value="user.newPassword">
+											<button rv-on-click="usercontroller.changePassword">Change Password</button>
+										</div>
+										<h4>My Sends</h4>
+										<ul class="routes--list">
+											<li class="route" rv-each-send="user.sendlist" rv-routeclasses="send.doc.colour"> 
+												<routeitem route="send.doc"></routeitem>
+												<!-- <span rv-text="send.doc.name"></span>
+												<span rv-text="send.doc.grade"></span>
+												<span rv-text="send.doc.colour"></span> -->
+											</li>
+										</ul>
+									</div>
+									<div class="overlay--controls">
+										<button class="button--text button--green_dark h-float-right" rv-on-click="usercontroller.hideDetails">Done</button>
+										<button class="button--bare h-float-left" rv-on-click="usercontroller.signout">Sign Out</button>
+									</div>
+								</div>
+								<div class="overlay--message" rv-show="user.passwordChanged">Saved</div>
+								<div class="overlay--error" rv-show="user.passworderror.haserror">
+									<h3>Error!</h3>
+									<p rv-text="routeCreator.error.message"></p>
+									<button rv-on-click="routeController.errorClear">Got it</button>
+								</div>
+							</div>
+						</template>
+
+		<div class="container">
+			<div class="js--routes">
+				<header class="h-overflow-hidden">
+					<h2>Routes</h2>
+				</header>
+				<div class="h-ta-left">
+					<input type="text" class="field_text_bound" rv-on-keyup="routesController.filterRoutes" placeholder="Find a route">
+					<select class="h-float-right field--select" rv-on-change="routesController.setSortOrder">
+						<option selected disabled>Sort Order</option>
+						<option value="gradeascending">Grade - Ascending</option>
+						<option value="gradedescending">Grade - Descending </option>
+						<option value="nameascending">Name - Ascending</option>
+						<option value="namedescending">Name - Descending </option>
+						<option value="dateascending">Date - Ascending</option>
+						<option value="datedescending">Date - Descending </option>
+						<option value="ratingascending">Rating - Ascending</option>
+						<option value="ratingdescending">Rating - Descending </option>
+					</select>
+				</div>
+				<ul class="routes--list" rv-class-s-loading="routes.loading" rv-unless="routes.searching"> 
+					<li rv-each-route="routes.routeList" class="route" rv-on-click="routesController.loadDetails" rv-routeclasses="route.colour">
+						<routeitem route="route"></routeitem>
+					</li>
+				</ul>
+				<div rv-if="routes.searching">
+					<ul class="routes--list" > 
+						<li rv-each-route="routes.searchResults" class="route" rv-on-click="routesController.loadDetails" rv-routeclasses="route.colour">
+							<routeitem route="route"></routeitem>
+						</li>
+					</ul>
+					<div class="h-mb-100 h-ta-center" rv-unless="routes.searchResults | lengthToBool">
+						No routes match your search
+					</div>
+				</div>
+				<div class="h-ta-center" rv-show="routes.loading">
+					Loading Routes...
+				</div>
+			</div>
+			<button class="button_fab h-float-right js--createRoute">+</button>
+						
+						<template id="routecreatortemplate">
+							<div class="overlay js--routeCreator">
+								<div class="overlay--content">
+									<div class="overlay--body">
+										<div class="overlay--heading">
+											<h1 rv-hide="routeCreator.route.name.value">Create a new route</h1>
+											<h1 rv-show="routeCreator.route.name.value" rv-text="routeCreator.route.name.value"></h1>
+										</div>
+										<div class="field--container">
+											<label>Name</label>
+											<div class="field--setting">
+												<textinput placeholder="Route Name" val="routeCreator.route.name"></textinput>
+											</div>
+										</div>
+										<div class="field--container">
+											<label>Description</label>
+											<div class="field--setting">
+												<div class="field_textarea" data-placeholder="Route Description" rv-divtextarea="routeCreator.route.description"></div>
+											</div>
+										</div>
+										<div class="field--container">
+											<label>Hold Colour</label>
+											<div class="field--setting">
+												<colourpicker val="routeCreator.route.colour"></colourpicker>
+											</div>
+										</div>
+										
+										<div class="overlay--section">
+											<div class="field--container">
+												<label>Route Type</label>
+												<div class="field--setting field_radiogroup">
+													<label rv-each-routetype="routeCreator.types"><input type="radio" name="routeType" rv-on-change="routeController.setType" rv-value="routetype.type"/><span rv-text="routetype.name"></span></label>
+												</div>
+											</div>
+											<div class="field--container">
+												<label>Route Topology</label>
+												<div class="field--setting field_radiogroup">
+													<label rv-each-routetopo="routeCreator.topologies"><input type="radio" name="routeTopo" rv-on-change="routeController.setTopo" rv-value="routetopo.topo"/>{routetopo.name}</label>
+												</div>
+											</div>
+										</div>
+										<div class="field--container">
+											<label>Grade</label>
+											<div class="field--setting">
+												<input type="range" min="0" rv-max="routeCreator.route.type | gradesoftype" placeholder="Boulder Grade" class="field_range" rv-value="routeCreator.route.grade">
+												<span rv-text="routeCreator.route.grade | gradeconversion routeCreator.route.type">0</span>
+											</div>
+										</div>
+									</div>
+									<div class="overlay--controls">
+										<button class="button--text button--green_dark h-float-right" rv-on-click="routeController.createRoute">Create Route</button>
+										<button class="button--bare h-float-left" rv-on-click="routeController.cancelCreate">Cancel</button>
+									</div>
+								</div>
+								
+						
+								<div class="overlay--message" rv-show="routeCreator.saving">Saving...</div>
+								<div class="overlay--error" rv-show="routeCreator.error.haserror">
+									<h3>Error!</h3>
+									<p rv-text="routeCreator.error.message"></p>
+									<button rv-on-click="routeController.errorClear">Got it</button>
+								</div>
+							</div>
+						</template>
+			<button class="button--text button--blue js--compareRoutes">Compare Routes</button>
+									
+									<template id="analyticsoverlay">
+										<div class="overlay js--analytics">
+											<div class="overlay--content">
+												<div class="overlay--body">
+													<div class="overlay--heading">
+														<h1>Compare Routes</h1>
+													</div>
+													<div class="h-ta-center">
+														<select class="field--select field--select_dark" rv-on-change="analyticscontroller.switchChart">
+															<option value="ratings">Compare Ratings</option>
+															<option value="sends">Compare Sends</option>
+														</select>
+													</div>
+													<div class="js--routechart ct-golden-section"></div>
+												</div>
+												<div class="overlay--controls">
+													<button class="button--text button--green_dark h-float-right" rv-on-click="analyticscontroller.hide">Done</button>
+												</div>
+											</div>
+										</div>
+									</template>
+		</div>
+
+		<template id="routedetailstemplate">
+			<div class="overlay route-details js--routedetails">
+				<div class="overlay--content">
+					<div class="overlay--body">
+						<div class="overlay--heading">
+							<h1 rv-text="routedetails.routeData.name"></h1>
+						</div>
+						<div class="grid--container">
+							<div class="content--square-block">
+								<label class="content--label">Grade</label>
+								<div class="route--grade_large" rv-text="routedetails.routeData.grade | gradeconversion routedetails.routeData.type"></div>
+							</div>
+							<div class="content--square-block">
+								<label class="content--label">Hold Colour</label>
+								<div class="route--colour_large" rv-routecolour="routedetails.routeData.colour" rv-alt="routedetails.routeData.colour"></div>
+							</div>
+							<div class="content--square-block">
+								<label class="content--label">Type</label>
+								<span rv-text="routedetails.routeData.type"></span>
+							</div>
+						</div>
+						<!-- <div>Topology: <span rv-text="routedetails.routeData.topo"></span></div> -->
+						<div class="content--section">	
+							<label class="content--label">Route Description:</label>
+							<p rv-text="routedetails.routeData.description"></p>
+						</div>
+						<div class="content--section h-ta-center">
+							<div class="h-pb-50">What did you think?</div>
+							<starrating></starrating>
+							<div rv-text="routedetails.routeData.votes.average | roundTwoDecimals"></div>
+						</div>
+						<div class="content--section">
+							Sends:<span rv-text="routedetails.routeData.sends.count"></span>
+							<button rv-on-click="routedetailscontroller.sent" rv-hide="routedetails.routeData.sends.users | userMatch">I sent it</button>
+							
+						</div> 
+						<div class="overlay--section">
+							<h3>Comments (<span rv-text="routedetails.routeData.comments | lengthofObject"></span>)</h3>
+							<ul rv-if="routedetails.routeData.comments | lengthToBool">
+								<li class="comment" rv-each-comment="routedetails.routeData.comments">
+									<p class="comment--body" rv-text="comment.message"></p>
+									<label class="comment--meta">Posted by<span rv-text="comment.user"></span> <span rv-text="comment.time | cleanDate"></span></label>
+								</li>
+							</ul>
+		
+							<div class="h-rel">
+								<div class="field_comment" data-placeholder="Add a Comment" rv-divtextarea="routedetails.tempComment"></div>
+								<button class="button--icon_small button--transparent_grey field--submit" rv-on-click="routedetailscontroller.postComment"><i class="icon-send"></i></button>
+							</div>
+						</div>
+					</div>
+					<div class="overlay--controls">
+						<button class="button--text button--green_dark h-float-right" rv-on-click="routedetailscontroller.hide">Done</button> 
+						<button class="button--text button--red h-float-left" rv-on-click="routedetailscontroller.delete">Delete Route</button>
+						
+					</div>
+		
+					<div class="overlay--confirm" rv-class-s-visible="routedetails.confirmDelte">
+						<div class="confirm--content">
+							Are you sure you want to delete this route?
+							<div class="h-ta-left h-mt-100">
+								<button class="button--bare" rv-on-click="routedetailscontroller.cancelConfirm">Cancel</button>
+								<button class="button--text button--red h-float-right" rv-on-click="routedetailscontroller.confirmDelete">Yes, Delete Route</button>
+							</div>
+						</div>
+					</div>
+		
+				</div>
+		
+			</div>
+		</template>
+
+		<script type="text/javascript" src="assets/javascript/app-min.js"></script>
+
+</body>
+</html>

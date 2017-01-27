@@ -1,0 +1,20 @@
+<div class="overlay js--signin" rv-show="signin.visible">
+	<div class="overlay--content">
+		<div class="overlay--body">
+			<h2>Sign In Please</h2>
+			<input type="text" placeholder="Username" rv-value="signin.username"><br/>
+			<input type="password" placeholder="Password" rv-value="signin.password"><br/>
+		</div>
+
+		<div class="overlay--error" rv-show="signin.loginerror.haserror">
+			<h3>Error!</h3>
+			<p rv-text="signin.loginerror.message"></p>
+			<button rv-on-click="signincontroller.errorClear">Got it</button>
+		</div>
+		
+		<div class="overlay--controls">
+			<button rv-on-click="signincontroller.signin">Sing In</button>
+		</div>
+	</div>
+	
+</div> 

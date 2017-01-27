@@ -1,0 +1,194 @@
+.field--container{
+	overflow: hidden;
+	position: relative;
+	margin-bottom: $line-height;
+
+	&>label{
+		@include font-label-small;
+		width: 30%;
+		display: inline-block;
+	}
+}
+
+@mixin field_alignment{
+	float: right;
+	width: 70%;
+	display: inline-block;
+}
+
+@mixin field_basics{
+	background-color: white;
+	border: none;
+	border-bottom: 2px solid $brand-colour;
+	padding-bottom: 8px;
+	width: 100%;
+
+	@include rhythm-m;
+
+	&:placeholder{
+		color: rgba(black,0.4); 
+	}
+
+	
+
+	&:focus{
+		border-bottom-color: darken($brand-colour, 10%);
+		outline: none;
+	}
+
+	&:hover{
+		border-bottom-color: lighten($brand-colour, 10%);
+	}
+
+	&.s-error{
+		border-bottom-color: $error-colour;
+	}
+}
+
+@mixin field_textarea{
+	resize: none;
+
+	&:empty:before{
+		content: attr(data-placeholder);
+		color: rgba(black,0.4);
+	}
+}
+
+	.field--setting{
+		@include field_alignment;
+		padding-bottom: 6px;
+	}
+
+	.field_text{
+		@include field_basics;
+	}
+
+	.field_text_bound{
+		@include field_basics;
+		margin-bottom: 20px;
+		border: $border_default;
+		border-radius: 5px;
+		padding: 8px;
+		display: inline-block;
+		max-width: 300px;
+
+		&:focus{
+			outline: none;
+			border-color: palette(green,dark);
+		}
+
+		&:hover{
+			border-color: palette(green);
+		}
+	}
+
+	.field_textarea{
+		@include field_basics;
+		@include field_textarea;
+	}
+
+	.field_comment{
+		background-color: #eeeeee;
+		padding: 8px 20px;
+		margin-right: 50px;
+		border: 2px solid white;
+		border-radius: 20px;
+		@include field_textarea;
+		@include rhythm-m;
+
+		&:focus{
+			outline: none;
+			border-color: palette(grey,dark);
+		}
+	}
+
+		.field--submit{
+			position: absolute;
+			right: 0;
+			top: -5px;
+			margin-top: 6px;
+			line-height: 34px;
+		}
+
+
+	password, emailinput, textinput,starrating{
+		display: inline-block;
+		width: 100%;
+		position: relative;
+	}
+
+		.password-toggle-vis{
+			position: absolute;
+			right: 0;
+			bottom: -5px;
+		}
+
+	.field--error{
+		@include rhythm-s; 
+		color: $error-colour;
+		text-align: center;
+	}
+
+
+
+	.field--select{
+		appearance: none;
+		padding: $default-spacing/2.5 40px $default-spacing/2 $default-spacing/2;
+		position: relative;
+		cursor: pointer;
+		border: none;
+		@include rhythm-s;
+		background:white url("data:image/svg+xml;utf8,<svg id='Layer_1' data-name='Layer 1' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 9'><path d='M13,14.09l5.29-5.3a1,1,0,0,1,1.42,1.42l-7,7a1,1,0,0,1-1.42,0l-7-7A1,1,0,0,1,5,8.5a1,1,0,0,1,.71.29L11,14.09A1.16,1.16,0,0,0,13,14.09Z' fill='#{palette(grey)}' transform='translate(-4 -8.5)'/></svg>") right 10px center no-repeat;
+		background-size: 20px 20px;
+		transition: $transition;
+
+		&:focus{
+			outline: none;
+		}
+
+		&:hover{
+			background-image: url("data:image/svg+xml;utf8,<svg id='Layer_1' data-name='Layer 1' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 9'><path d='M13,14.09l5.29-5.3a1,1,0,0,1,1.42,1.42l-7,7a1,1,0,0,1-1.42,0l-7-7A1,1,0,0,1,5,8.5a1,1,0,0,1,.71.29L11,14.09A1.16,1.16,0,0,0,13,14.09Z' fill='#{palette(grey,x-dark)}' transform='translate(-4 -8.5)'/></svg>");
+			background-color: palette(grey,light);
+		}
+	}
+
+		.field--select_dark{
+			background-color: palette(grey,x-light);
+		}
+
+
+	.field_range{
+		-webkit-appearance: none;
+		margin: 18px 0;
+		width: 100%;
+		
+		&:focus {
+			outline: none;
+
+			&::-webkit-slider-runnable-track {
+				border-color: $brand-colour;
+			}
+		}
+
+		&::-webkit-slider-runnable-track {
+			width: 100%;
+			height: 10px;
+			cursor: pointer;
+			animate: 0.2s;
+			background: $grey-300;
+			border-radius: 5px;
+			border: 2px solid white;
+		}
+
+		&::-webkit-slider-thumb {
+			border: 2px solid white;
+			height: 30px;
+			width: 30px;
+			border-radius: 15px;
+			background: $brand-colour;
+			cursor: pointer;
+			-webkit-appearance: none;
+			margin-top: -12px;
+			box-shadow: $shadow_default;
+		}
+	}

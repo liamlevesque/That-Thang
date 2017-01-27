@@ -1,0 +1,103 @@
+<!DOCTYPE HTML>
+
+
+<html lang="en_US">
+
+	<!-- @path_js  : /assets/javascript/ -->
+	<!-- @path_css : /assets/css/ -->
+	<!-- @path_img : /assets/img/ -->
+
+	<head>
+		<link rel="manifest" href="./manifest.json">
+		<title>Climbing Thang</title>
+		
+		<link type="text/css" rel="stylesheet" href="<!-- @path_css -->/styles.css">
+	</head>
+
+	<body>
+		
+		<!-- @include '/assets/partials/appFrame' -->
+		<!-- @include '/assets/partials/signin' -->
+		<!-- @include '/assets/partials/userDetails' -->
+
+		<!-- @include '/assets/partials/routeList' -->
+		<!-- @include '/assets/partials/routeAnalytics' -->
+		<!-- @include '/assets/partials/routeDetails' -->
+		<!-- @include '/assets/partials/routeCreate' -->
+
+		<!-- USER LIST AND CREATION -->
+			<div class="user-list js--users">
+				<h2>Users</h2>
+				<ul>
+					<li rv-each-user="users.list" rv-on-click="userscontroller.loadDetails">
+						<span rv-text="user.doc.name"></span>
+						<span rv-text="user.doc.email"></span>
+					</li>
+				</ul>
+				<button rv-on-click="userscontroller.showCreateModal">+</button>
+				
+				<div class="overlay" rv-show="users.visible">
+					<div class="overlay--content">
+						<div class="overlay--body">
+							<h1>Create a new User</h1>
+							<input type="text" placeholder="Username" rv-value="users.create.name"><br/>
+							<input type="text" placeholder="Email" rv-value="users.create.email"><br/>
+							<input type="text" placeholder="Password" rv-value="users.create.password"><br/>
+						</div>
+						
+						<div class="overlay--controls">
+							<button rv-on-click="userscontroller.createUser">Create User</button>
+							<button rv-on-click="userscontroller.cancelCreateUser">Cancel</button>
+						</div>
+
+					</div>
+
+					<div class="overlay--message" rv-show="users.saving">Saving...</div>
+					<div class="overlay--error" rv-show="users.error.haserror">
+						<h3>Error!</h3>
+						<p rv-text="users.error.message"></p>
+						<button rv-on-click="userscontroller.errorClear">Got it</button>
+					</div>
+				</div>
+
+			</div>
+
+		
+			
+	
+		<!-- ADMINISTRATION USER DETAILS OVERLAY -->
+			<div class="overlay user-details js--userdetails" rv-show="userdetails.visible">
+				<div class="overlay--content">
+					<div class="overlay--body">
+						<h1>User Details</h1>
+						<div rv-text="userdetails.userData.name"></div>
+						<div rv-text="userdetails.userData.email"></div>
+
+						<input type="text" placeholder="New Password" rv-value="userdetails.newPassword">
+						<button rv-on-click="userdetailscontroller.changePassword">Change Password</button>
+						<br/>
+						<h4 rv-show="userdetails.passwordChanged">SAVED!</h4>
+						<br/>
+						<h3>My Sends</h3>
+						<ul>
+							<li rv-each-route="userdetails.userData.routes">
+								<span rv-text="route.doc.name"></span>
+								<span rv-text="route.doc.grade"></span>
+								<span rv-text="route.doc.colour"></span>
+							</li>
+						</ul>
+						<br/>
+					</div>
+
+					<div class="overlay--controls">
+						<button rv-on-click="userdetailscontroller.hide">Done</button>
+					</div>
+				</div>
+			</div>
+			
+
+		<script type="text/javascript" src="<!-- @path_js -->/app-min.js"></script>
+
+	</body>
+
+</hmtl>

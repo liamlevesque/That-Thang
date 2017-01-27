@@ -1,0 +1,53 @@
+<template id="createuseroverlay">
+	<div class="overlay js--createUser">
+		<div class="overlay--content">
+			<div class="overlay--body">
+				<div class="overlay--heading">
+					<h1>Create a new User</h1>
+				</div>
+				<div class="field--container">
+					<label>Username</label>
+					<div class="field--setting">
+						<textinput placeholder="Username" val="createuser.username"></textinput>
+					</div>
+				</div>
+				<!-- <input type="text" placeholder="Username" rv-value="createuser.create.name"><br/> -->
+				<div class="field--container">
+					<label>Email</label>
+					<div class="field--setting">
+						<emailinput placeholder="Email" val="createuser.email"></emailinput>
+					</div>
+				</div>
+				<div class="field--container">
+					<label>Password</label>
+					<div class="field--setting">
+						<password placeholder="Password" val="createuser.password"></password>
+					</div>
+				</div>
+				<div class="field--container">
+					<label>User Type</label>
+					<div class="field--setting">
+						<label rv-each-type="createuser.userTypes">
+							<input type="radio" class="field_toggle" name="usertype" rv-on-change="createusercontroller.setUserType" rv-value="type" rv-checkfirst="index"/> 
+							<span rv-text="type"></span>
+						</label>
+					</div>
+				</div>
+			</div>
+
+			<div class="overlay--message" rv-show="createuser.saving">Saving...</div>
+			<div class="overlay--error" rv-show="createuser.error.haserror">
+				<h3>Error!</h3>
+				<p rv-text="createuser.error.message"></p>
+				<button rv-on-click="createusercontroller.errorClear">Got it</button>
+			</div>
+			
+			<div class="overlay--controls"> 
+				<button class="button--text button--green_dark h-float-right" rv-on-click="createusercontroller.createUser">Create User</button>
+				<button class="button--bare h-float-left" rv-on-click="createusercontroller.cancelCreateUser">Cancel</button>
+			</div>
+
+		</div>
+
+	</div>
+</template>

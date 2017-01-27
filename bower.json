@@ -1,0 +1,47 @@
+{
+  "name": "my-new-project",
+  "authors": [
+    "John Doe <john@doe.com> (http://johndoe.com)"
+  ],
+  "description": "CodeKit automatically generated this file. You should customize it according to: https://github.com/bower/spec/blob/master/json.md",
+  "main": [
+    "index.html",
+    "main.js"
+  ],
+  "moduleType": [
+    "amd",
+    "es6",
+    "globals",
+    "node",
+    "yui"
+  ],
+  "keywords": [
+    "none"
+  ],
+  "license": "MIT",
+  "homepage": "https://google.com",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/foo/bar.git"
+  },
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "private": true,
+  "dependencies": {
+    "pouchdb": "^6.1.1",
+    "pouchdb-find": "^0.10.3",
+    "rivets": "^0.9.6",
+    "jquery": "^3.1.1",
+    "qrcode.js": "qrcode-js#*",
+    "pouchdb-authentication": "^0.5.5",
+    "chartist": "^0.10.1",
+    "moment": "^2.17.1",
+    "qrious": "^2.2.0",
+    "fuse.js": "^2.6.1"
+  }
+}

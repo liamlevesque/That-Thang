@@ -1,0 +1,151 @@
+.button_create{
+	position: fixed;
+	bottom: 20px;
+	right: 20px;
+	width: 30px;
+	height: 30px;
+	border-radius: 30px;
+	background-color: palette(green);
+}
+
+$button-radius: 5px;
+
+@mixin button_reset{
+	border: none;
+	cursor: pointer;
+	border: 2px solid transparent;
+	transition: $transition;
+	cursor: pointer;
+
+	&:focus{
+		outline: none;
+		border-color: white;
+	}
+}
+
+@mixin button-base{
+	@include button_reset;
+	padding: $default-spacing/2.5 $default-spacing/2;
+	border-radius: $button-radius;
+	@include font-label-small;
+
+	&:focus{
+		outline: none;
+	}
+}
+
+.button--text{
+	@include button-base;
+}
+
+.button--bare{
+	@include button-base;
+	background-color: rgba(black,0);
+	color: white;
+
+	&:hover{
+		background-color: rgba(black,0.1);
+	}
+}
+
+	.button--green{
+		background-color: palette(green);
+		color: white;
+
+		&:hover{
+			background-color: palette(green,dark);
+		}
+	}
+
+	.button--green_dark{
+		background-color: palette(green,dark);
+		color: white;
+
+		&:hover{
+			background-color: palette(green,x-dark);
+		}
+	}
+
+	.button--blue{
+		background-color: palette(blue);
+		color: white;
+
+		&:hover{
+			background-color: palette(blue,dark);
+		}
+	}
+
+	.button--red{
+		background-color: palette(red);
+		color: white;
+
+		&:hover{
+			background-color: palette(red,dark);
+		}
+	}
+
+	.button--transparent_blue{
+		background-color: transparent;
+		color: palette(blue);
+
+		&:hover{
+			color: palette(blue, dark);
+		}
+	}
+
+	.button--transparent_grey{
+		background-color: transparent;
+		color: palette(grey,x-dark);
+
+		&:hover{
+			color: palette(blue);
+		}
+	}
+
+	.button--transparent_white{
+		background-color: transparent;
+		color: white;
+
+		&:hover{
+			color: palette(grey,x-light);
+		}
+	}
+
+
+.button_fab{
+	@include button_reset;
+	width: 2 * $default-spacing;
+	height: 2 * $default-spacing;
+	box-shadow: $shadow_default;
+	font-size: 30px;
+	font-weight: 700;
+	color: white;
+	text-align: center;
+	line-height: 2 * $default-spacing;
+	background-color: palette(green);
+	transition: $transition;
+	
+	border-radius: 2 * $default-spacing;
+	
+
+	&:hover{
+		background-color: palette(green,dark);
+		transform: scale(1.2);
+	}
+}
+
+$button-small-size: 40px;
+
+.button--icon_small{
+	@include button_reset;
+	border: 2px solid transparent;
+	width: $button-small-size;
+	height: $button-small-size;
+	text-align: center;
+	line-height: $button-small-size;
+	font-size: 24px;
+
+	&:focus{
+		border-color: palette(green);
+	}
+}

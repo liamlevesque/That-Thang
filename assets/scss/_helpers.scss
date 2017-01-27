@@ -1,0 +1,56 @@
+.h-float-left{
+	float: left;
+}
+
+.h-float-right{
+	float: right;
+}
+
+.h-vcenter{
+	position: relative;
+	top: 50%;
+	transform: translateY(-50%);
+}
+
+.h-valign{
+	vertical-align: middle;
+}
+
+.h-ta-center{
+	text-align: center;
+}
+
+.h-ta-left{
+	text-align: left;
+}
+
+.h-ta-right{
+	text-align: right;
+}
+
+.h-overflow-hidden{
+	overflow: hidden;
+}
+
+//POSITION
+.h-rel{
+	position: relative;
+}
+
+.h-abs-right{
+	position: absolute;
+	right: 0;
+}
+
+//MARGINS
+.h-mt-100{
+	margin-top: $default-spacing;
+}
+
+.h-mb-100{
+	margin-bottom: $default-spacing;
+}
+
+.h-pb-50{
+	padding-bottom: $default-spacing/2;
+}

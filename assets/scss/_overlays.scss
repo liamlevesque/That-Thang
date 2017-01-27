@@ -1,0 +1,105 @@
+
+
+.overlay{
+	position: fixed;
+	top: 100vh;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	overflow: hidden;
+
+	background-color: rgba(black,0.8);
+
+	transition: $transition;
+
+	&.s-visible{
+		top: 0;
+	}
+
+}
+
+	.overlay--content{
+		width: 500px;
+		margin: 0 auto;
+		position: relative;
+		top: 50%;
+		transform: translateY(-50%);
+		max-height: 100%;
+
+		display: flex;
+		flex-direction: column;
+
+		overflow: hidden;
+    	
+		background-color: white;
+	}
+
+		.overlay--body{
+			padding: $default-spacing;
+
+			flex: auto;
+
+			overflow-y: auto;
+		}
+
+			.overlay--heading{
+				margin-bottom: 30px;
+			}
+
+			.overlay--section{
+				border-top: $border_default;
+				border-bottom: $border_default;
+				padding: $default-spacing/2 0;
+				margin: $default-spacing/2 0;
+
+				.overlay--heading + &{
+					margin-top: 0;
+					padding-top: 0;
+					border-top: none;
+				}
+			}
+
+		.overlay--controls{
+			flex: 75px;
+			padding: 10px $default-spacing;
+			background-color: palette(green);
+			text-align: center;
+		}
+
+		.overlay--error{
+			flex: 50px;
+			background-color: $error-colour;
+			color: white;
+		}
+
+		.overlay--confirm{
+			position: absolute;
+			top: 100%;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			background-color: rgba(black, 0.6);
+			text-align: center;
+			overflow: hidden;
+			transition: $transition;
+
+			&.s-visible{
+				top: 0;
+
+				.confirm--content{
+					transform: translateY(0);
+				}
+			}
+		}
+
+			.confirm--content{
+				background-color: palette(red,x-dark);
+				color: white;
+				position: absolute;
+				bottom: 0;
+				left: 0;
+    			right: 0;
+				padding: $default-spacing;
+				transition: $transition;
+				transform: translateY(100%);
+			}

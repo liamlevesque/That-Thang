@@ -1,0 +1,34 @@
+.container{
+	max-width: 800px;
+	margin: 0 auto;
+}
+
+.container_centered{
+	max-width: 500px;
+	margin: 0 auto;
+	background-color: white;
+	box-shadow: $shadow_default;
+}
+
+.container_dark{
+	background-color: $grey-100;
+	color: white;
+}
+
+	.container--body{
+		padding: $default-spacing;
+		overflow: hidden;
+	}
+
+	.container--controls{
+		background-color: $brand-colour;
+		padding: 10px $default-spacing;
+		overflow: hidden;
+	}
+
+	.container--error{
+		background-color: $error-colour;
+		color: white;
+		padding: 10px $default-spacing;
+	}
+

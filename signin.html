@@ -1,0 +1,112 @@
+<!DOCTYPE HTML>
+
+
+<html>
+
+	<head>
+		<link rel="manifest" href="./manifest.json">
+		<title>Climbing Thang</title>
+		
+		<link type="text/css" rel="stylesheet" href="assets/css/styles.css">
+	</head>
+
+	<body class="page_static">
+		
+		
+
+		<div class="h-vcenter">
+			
+			<div class="container_centered js--signin">
+				<div class="container--body">
+					<h2>Sign In Please</h2>
+					<div class="field--container">
+						<label>Username</label>
+						<div class="field--setting">
+							<textinput placeholder="Username" val="signin.username"></textinput>
+						</div>
+					</div>
+					<div class="field--container">
+						<label>Password</label>
+						<div class="field--setting">
+							<password placeholder="Password" val="signin.password"></password>
+						</div>
+					</div>
+				</div>
+			
+				<div class="container--error" rv-show="signin.loginerror.haserror">
+					<h3>Error!</h3>
+					<p rv-text="signin.loginerror.message"></p>
+					<button rv-on-click="signincontroller.errorClear">Got it</button>
+				</div>
+				
+				<div class="container--controls">
+					<button class="button--text button--green_dark h-float-right" rv-on-click="signincontroller.signin">Sing In</button>
+				</div>
+			</div>
+			<br/>
+			<div class="container_centered container_dark">
+				<div class="container--body">
+					<span class="h-valign">Are you new here?</span>
+					<button class="button--text button--blue h-float-right js--showCreateAccount">Create an account</button>
+				</div>
+			</div>
+		</div>
+
+		<template id="createuseroverlay">
+			<div class="overlay js--createUser">
+				<div class="overlay--content">
+					<div class="overlay--body">
+						<div class="overlay--heading">
+							<h1>Create a new User</h1>
+						</div>
+						<div class="field--container">
+							<label>Username</label>
+							<div class="field--setting">
+								<textinput placeholder="Username" val="createuser.username"></textinput>
+							</div>
+						</div>
+						<!-- <input type="text" placeholder="Username" rv-value="createuser.create.name"><br/> -->
+						<div class="field--container">
+							<label>Email</label>
+							<div class="field--setting">
+								<emailinput placeholder="Email" val="createuser.email"></emailinput>
+							</div>
+						</div>
+						<div class="field--container">
+							<label>Password</label>
+							<div class="field--setting">
+								<password placeholder="Password" val="createuser.password"></password>
+							</div>
+						</div>
+						<div class="field--container">
+							<label>User Type</label>
+							<div class="field--setting">
+								<label rv-each-type="createuser.userTypes">
+									<input type="radio" class="field_toggle" name="usertype" rv-on-change="createusercontroller.setUserType" rv-value="type" rv-checkfirst="index"/> 
+									<span rv-text="type"></span>
+								</label>
+							</div>
+						</div>
+					</div>
+		
+					<div class="overlay--message" rv-show="createuser.saving">Saving...</div>
+					<div class="overlay--error" rv-show="createuser.error.haserror">
+						<h3>Error!</h3>
+						<p rv-text="createuser.error.message"></p>
+						<button rv-on-click="createusercontroller.errorClear">Got it</button>
+					</div>
+					
+					<div class="overlay--controls"> 
+						<button class="button--text button--green_dark h-float-right" rv-on-click="createusercontroller.createUser">Create User</button>
+						<button class="button--bare h-float-left" rv-on-click="createusercontroller.cancelCreateUser">Cancel</button>
+					</div>
+		
+				</div>
+		
+			</div>
+		</template>
+		
+		<script type="text/javascript" src="assets/javascript/signin-min.js"></script>
+
+</body>
+</html>

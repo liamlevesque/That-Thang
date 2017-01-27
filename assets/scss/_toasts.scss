@@ -1,0 +1,14 @@
+.toast{
+	position: absolute;
+	left: 0;
+	bottom: 0;
+	width: 100%;
+	height: 60px;
+	line-height: 60px;
+	background-color: rgba(black,0.9);
+	color: white;
+
+	&.toast_success{
+		background-color: palette(green, dark);
+	}
+}

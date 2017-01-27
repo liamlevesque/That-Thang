@@ -1,0 +1,69 @@
+//@import url('https://fonts.googleapis.com/css?family=Work+Sans:300,400,700');
+//@import url('https://fonts.googleapis.com/css?family=Montserrat:400,700');
+@import url('https://fonts.googleapis.com/css?family=Montserrat:700|Work+Sans');
+
+body{
+	
+	font-family: 'Work Sans', helvetica, sans-serif;
+	//font-family: 'Work Sans', helvetica, sans-serif;
+}
+
+$line-height: 24px;
+
+$font-sizes:  (s: 14px, m: 18px, l: 24px, xl: 32px);
+$cap-heights: (s: 0.68,  m: 0.68,  l: 0.68, xl: 0.68);
+
+// Accepts `s`, `m`, `l`, or `xl`
+@function rhythm-shift($size-name) {
+  $font-size: map-get($font-sizes, $size-name);
+  $cap-height: map-get($cap-heights, $size-name);
+
+  $offset: ($line-height - $cap-height * $font-size) / 2;
+  @return round($offset);
+}
+
+$offset-s: rhythm-shift(s);
+$offset-m: rhythm-shift(m);
+$offset-l: rhythm-shift(l);
+$offset-xl: rhythm-shift(xl);
+
+@mixin rhythm-s {
+  font-size: map-get($font-sizes, s);
+  margin-top: $offset-s;
+  margin-bottom: -1 * $offset-s;
+}
+@mixin rhythm-m {
+  font-size: map-get($font-sizes, m);
+  margin-top: $offset-m;
+  margin-bottom: -1 * $offset-m;
+}
+@mixin rhythm-l {
+  font-size: map-get($font-sizes, l);
+  margin-top: $offset-l;
+  margin-bottom: -1 * $offset-l;
+}
+@mixin rhythm-xl {
+  font-size: map-get($font-sizes, xl);
+  margin-top: $offset-xl;
+  margin-bottom: -1 * $offset-xl;
+}
+ 
+@mixin label{
+	text-transform: uppercase;
+	font-weight: 700;
+	letter-spacing: 1px;
+}
+
+@mixin font-label-small{
+	@include rhythm-s;
+	@include label;
+}
+
+@mixin font-label-medium{
+	@include rhythm-m;
+	@include label;
+}
+
+body{
+	@include rhythm-m;
+}

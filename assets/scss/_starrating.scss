@@ -1,0 +1,44 @@
+$color: palette(yellow);
+$star-size: 40px;
+
+@mixin set-star($fill: palette(grey)) {
+  color: $fill;
+}
+
+.stars input {
+  position: absolute;
+  clip: rect(0,0,0,0);
+}
+
+.stars label {
+  display: inline-block;
+  padding-right: $star-size + 10px;
+  height: $star-size;
+  width: $star-size;
+  font-size: 30px;
+  @include set-star();
+  @include iconfont;
+  @extend .icon-star;
+  cursor: pointer;
+
+  &:hover{
+  	color: palette(yellow);
+  }
+}
+
+.stars input:nth-child(1):checked ~ label:nth-of-type(-n + 1),
+.stars input:nth-child(2):checked ~ label:nth-of-type(-n + 2),
+.stars input:nth-child(3):checked ~ label:nth-of-type(-n + 3),
+.stars input:nth-child(4):checked ~ label:nth-of-type(-n + 4),
+.stars input:nth-child(5):checked ~ label:nth-of-type(-n + 5) {
+  @include set-star($color);
+  @extend .icon-star_filled;
+}
+
+.stars input:nth-child(1):hover ~ label:nth-of-type(-n + 1),
+.stars input:nth-child(2):hover ~ label:nth-of-type(-n + 2),
+.stars input:nth-child(3):hover ~ label:nth-of-type(-n + 3),
+.stars input:nth-child(4):hover ~ label:nth-of-type(-n + 4),
+.stars input:nth-child(5):hover ~ label:nth-of-type(-n + 5) {
+  @include set-star($color);
+}

@@ -1,0 +1,15 @@
+@mixin grid--container{
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: streetch;
+    flex-wrap: wrap;
+}
+
+.grid--container{
+	@include grid--container;
+}
+
+	.grid--item{
+		flex: 1;
+	}

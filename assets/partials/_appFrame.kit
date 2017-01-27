@@ -1,0 +1,20 @@
+<div class="app-frame js--app">
+	<div class="offline" rv-unless="app.online">OFFLINE FOOL</div>\
+	<div class="" rv-on-click="appcontroller.showSignin" rv-unless="app.loggedin.isloggedin">Sign In</div>
+	<div class="" rv-if="app.loggedin.isloggedin">
+		<span rv-on-click="appcontroller.showDetails">Welcome back <span rv-text="app.loggedin.username"></span></span><br/>
+	</div>
+	<div class="toast toast_undoable" rv-if="app.undoMessage | lengthToBool">
+		<div class="container">
+			<span class="" rv-text="app.undoMessage"></span>
+			<button class="button--text h-float-right" rv-on-click="appcontroller.undoAction">Undo</button>
+		</div>
+	</div>
+
+	<div class="toast toast_success" rv-if="app.confirmMessage | lengthToBool">
+		<div class="container">
+			<span class="" rv-text="app.confirmMessage"></span>
+			<button class="button--icon_small button--transparent_white h-float-right" rv-on-click="appcontroller.hideConfirmation"><i class="icon-cross"></i></button>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,66 @@
+<button class="button_fab h-float-right js--createRoute">+</button>
+
+<template id="routecreatortemplate">
+	<div class="overlay js--routeCreator">
+		<div class="overlay--content">
+			<div class="overlay--body">
+				<div class="overlay--heading">
+					<h1 rv-hide="routeCreator.route.name.value">Create a new route</h1>
+					<h1 rv-show="routeCreator.route.name.value" rv-text="routeCreator.route.name.value"></h1>
+				</div>
+				<div class="field--container">
+					<label>Name</label>
+					<div class="field--setting">
+						<textinput placeholder="Route Name" val="routeCreator.route.name"></textinput>
+					</div>
+				</div>
+				<div class="field--container">
+					<label>Description</label>
+					<div class="field--setting">
+						<div class="field_textarea" data-placeholder="Route Description" rv-divtextarea="routeCreator.route.description"></div>
+					</div>
+				</div>
+				<div class="field--container">
+					<label>Hold Colour</label>
+					<div class="field--setting">
+						<colourpicker val="routeCreator.route.colour"></colourpicker>
+					</div>
+				</div>
+				
+				<div class="overlay--section">
+					<div class="field--container">
+						<label>Route Type</label>
+						<div class="field--setting field_radiogroup">
+							<label rv-each-routetype="routeCreator.types"><input type="radio" name="routeType" rv-on-change="routeController.setType" rv-value="routetype.type"/><span rv-text="routetype.name"></span></label>
+						</div>
+					</div>
+					<div class="field--container">
+						<label>Route Topology</label>
+						<div class="field--setting field_radiogroup">
+							<label rv-each-routetopo="routeCreator.topologies"><input type="radio" name="routeTopo" rv-on-change="routeController.setTopo" rv-value="routetopo.topo"/>{routetopo.name}</label>
+						</div>
+					</div>
+				</div>
+				<div class="field--container">
+					<label>Grade</label>
+					<div class="field--setting">
+						<input type="range" min="0" rv-max="routeCreator.route.type | gradesoftype" placeholder="Boulder Grade" class="field_range" rv-value="routeCreator.route.grade">
+						<span rv-text="routeCreator.route.grade | gradeconversion routeCreator.route.type">0</span>
+					</div>
+				</div>
+			</div>
+			<div class="overlay--controls">
+				<button class="button--text button--green_dark h-float-right" rv-on-click="routeController.createRoute">Create Route</button>
+				<button class="button--bare h-float-left" rv-on-click="routeController.cancelCreate">Cancel</button>
+			</div>
+		</div>
+		
+
+		<div class="overlay--message" rv-show="routeCreator.saving">Saving...</div>
+		<div class="overlay--error" rv-show="routeCreator.error.haserror">
+			<h3>Error!</h3>
+			<p rv-text="routeCreator.error.message"></p>
+			<button rv-on-click="routeController.errorClear">Got it</button>
+		</div>
+	</div>
+</template>

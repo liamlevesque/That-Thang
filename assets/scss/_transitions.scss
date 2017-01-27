@@ -1,0 +1,5 @@
+$transition-time_1: .2s;
+$transition-time_2: .35s;
+$transition-function: cubic-bezier(0.630, 0.005, 0.365, 1.000);//cubic-bezier(0.95, 0.05, 0.795, 0.035);
+
+$transition: $transition-time_1 $transition-function;

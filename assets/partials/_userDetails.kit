@@ -1,0 +1,41 @@
+<template id="useroverlay">
+	<div class="overlay js--activeuser">
+		<div class="overlay--content">
+			<div class="overlay--body">
+
+				<div class="overlay--heading">
+					<h1 rv-text="user.data.name"></h1>
+				</div>
+
+				<div class="overlay--section">
+					<div rv-text="user.data.name"></div>
+					<div rv-text="user.data.email"></div>
+
+					<img class="user--qrcode" rv-src="user.data.qrcode | qrcodeToImage"/>
+
+					<input type="text" placeholder="New Password" rv-value="user.newPassword">
+					<button rv-on-click="usercontroller.changePassword">Change Password</button>
+				</div>
+				<h4>My Sends</h4>
+				<ul class="routes--list">
+					<li class="route" rv-each-send="user.sendlist" rv-routeclasses="send.doc.colour"> 
+						<routeitem route="send.doc"></routeitem>
+						<!-- <span rv-text="send.doc.name"></span>
+						<span rv-text="send.doc.grade"></span>
+						<span rv-text="send.doc.colour"></span> -->
+					</li>
+				</ul>
+			</div>
+			<div class="overlay--controls">
+				<button class="button--text button--green_dark h-float-right" rv-on-click="usercontroller.hideDetails">Done</button>
+				<button class="button--bare h-float-left" rv-on-click="usercontroller.signout">Sign Out</button>
+			</div>
+		</div>
+		<div class="overlay--message" rv-show="user.passwordChanged">Saved</div>
+		<div class="overlay--error" rv-show="user.passworderror.haserror">
+			<h3>Error!</h3>
+			<p rv-text="routeCreator.error.message"></p>
+			<button rv-on-click="routeController.errorClear">Got it</button>
+		</div>
+	</div>
+</template>

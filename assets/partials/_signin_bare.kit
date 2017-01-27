@@ -1,0 +1,28 @@
+
+<div class="container_centered js--signin">
+	<div class="container--body">
+		<h2>Sign In Please</h2>
+		<div class="field--container">
+			<label>Username</label>
+			<div class="field--setting">
+				<textinput placeholder="Username" val="signin.username"></textinput>
+			</div>
+		</div>
+		<div class="field--container">
+			<label>Password</label>
+			<div class="field--setting">
+				<password placeholder="Password" val="signin.password"></password>
+			</div>
+		</div>
+	</div>
+
+	<div class="container--error" rv-show="signin.loginerror.haserror">
+		<h3>Error!</h3>
+		<p rv-text="signin.loginerror.message"></p>
+		<button rv-on-click="signincontroller.errorClear">Got it</button>
+	</div>
+	
+	<div class="container--controls">
+		<button class="button--text button--green_dark h-float-right" rv-on-click="signincontroller.signin">Sing In</button>
+	</div>
+</div>

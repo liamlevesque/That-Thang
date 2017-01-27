@@ -1,0 +1,23 @@
+<button class="button--text button--blue js--compareRoutes">Compare Routes</button>
+
+<template id="analyticsoverlay">
+	<div class="overlay js--analytics">
+		<div class="overlay--content">
+			<div class="overlay--body">
+				<div class="overlay--heading">
+					<h1>Compare Routes</h1>
+				</div>
+				<div class="h-ta-center">
+					<select class="field--select field--select_dark" rv-on-change="analyticscontroller.switchChart">
+						<option value="ratings">Compare Ratings</option>
+						<option value="sends">Compare Sends</option>
+					</select>
+				</div>
+				<div class="js--routechart ct-golden-section"></div>
+			</div>
+			<div class="overlay--controls">
+				<button class="button--text button--green_dark h-float-right" rv-on-click="analyticscontroller.hide">Done</button>
+			</div>
+		</div>
+	</div>
+</template>

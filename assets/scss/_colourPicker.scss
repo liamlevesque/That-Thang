@@ -1,0 +1,55 @@
+.colourpicker{
+	padding: 5px 0;
+}
+
+$colour-block-size: 40px;
+
+	.colourpicker--colour{
+		position: relative;
+		display: inline-block;
+		width: $colour-block-size;
+		height: $colour-block-size;
+		margin-right: 10px;
+		
+		cursor: pointer;
+
+		transition: $transition;
+
+		.check{
+			position: absolute;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			border-radius: $colour-block-size;
+			border: 2px solid white;
+		}
+		
+		&:hover .check{
+			transform: scale(1.2);
+		}
+
+		input{
+			//visibility: hidden;
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%,-50%);
+
+			&:focus ~ .check{
+				border-color: $grey-800;
+				transform: scale(1.2);
+			}
+
+			&:checked ~ .check {
+				border-color: $brand-colour_tone;
+				transform: scale(1.2);
+			}
+		}
+	}
+
+		@each $holdcolor in $holdcolors{	
+			.colourpicker--colour.colour--#{nth($holdcolor,1)} .check{
+				background-color: #{nth($holdcolor,2)};
+			}
+		}
